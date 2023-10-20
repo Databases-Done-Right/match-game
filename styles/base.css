@@ -1,0 +1,477 @@
+:root {
+    --formValid: green;
+    --formInvalid: red;
+    --buttonColor: green;
+  }
+
+body {
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    font-size:18px;
+}
+
+header {
+    background-color:blue;
+    color:#fff;
+    margin:0px auto;
+    border-bottom:solid 1px #fff;
+}
+
+header .inner-container {
+    text-align:center;
+}
+
+header img {
+    border:solid 1px #fff;
+    padding:1px; 
+    vertical-align:middle;
+    max-width:70%;
+    margin:10px 0px; 
+}
+
+nav {
+	background-color: #222;
+	margin: 0 auto;
+}
+nav ul {
+	list-style-type: none;
+    margin-top:0px;
+    padding-left:0px;
+}
+nav a {
+	display: block;
+	color: #fff;
+	text-align: center;
+	padding: 1rem;
+	text-decoration: none;
+}
+
+nav a:hover {
+	border: 1px solid #fff;
+}
+
+nav .active {
+	color: yellow;
+}
+
+main div.hero-image-container {
+    width:100%;
+    background-image: url('../images/hero.webp');
+    background-repeat:no-repeat;
+    height:300px;
+    background-size:cover;
+    padding-top:300px;
+    background-position: center center;
+}
+
+main div.hero-image-container div.hero-cta-container {
+    background: rgba(255,255,255,.8);
+    width:50%;
+    border-radius:10px;
+    border:solid 1px #fff;
+    padding:30px;
+    text-align:Center;
+    color:#000;
+    font-weight:bold;
+    margin:0px auto;
+}
+
+main h1 {
+    text-align:center;
+    margin:40px auto 10px;
+    width:auto;
+}
+
+main div.card-container {
+    display:grid;
+    grid-template: 1fr / 6fr 4fr;
+}
+
+main section.card {
+    padding:0px;
+    margin:5px;
+    border:solid 1px #000;
+    border-radius:5px;
+}
+
+main section.card:nth-child(1) {
+    grid-column:1/2;
+}
+
+main section.card:nth-child(1) ul {
+    list-style-type: none;
+    padding-left:0px;
+    margin-top:0px;
+}
+
+main section.card:nth-child(2) {
+    grid-column:2/3;
+    text-align:center;
+}
+
+main section.card:nth-child(2) > div > div {
+    padding-bottom:10px;
+}
+
+main section.card:nth-child(3) {
+    grid-column:1/3;
+}
+
+main section.card:nth-child(3) img {
+    float:left;
+    margin-right:20px;
+    padding:1px;
+    border:solid 1px #ddd;
+}
+
+main section.card h2 {
+    color:#fff;
+    text-decoration:none;
+    text-align:center;
+    font-weight:bold;
+    background-color:blue;
+    margin-top:0px;
+    margin-bottom:10px;
+    font-size:28px;
+    padding:5px 0px;
+}
+
+main section.card > div {
+    padding:10px 20px 10px;
+}
+
+main div.discover {
+    display:grid;
+    grid-template: 2fr / 3fr;
+}
+
+main .discoverCard {
+    padding:20px;
+    border:solid 1px #ddd;
+    border-radius:10px;
+    margin:10px;
+}
+
+main .discoverCard:nth-child(1) {
+    grid-column: 1/2;
+}
+
+main .discoverCard:nth-child(2) {
+    grid-column: 2/3;
+}
+
+main .discoverCard:nth-child(1) div:nth-child(1) {
+    margin-bottom:80px;
+}
+
+main .discoverCard img {
+    max-width:100%;
+}
+
+.inner-container {
+    margin:0px auto;
+    max-width:1100px;
+    width:auto;
+}
+
+footer {
+    background-color:blue;
+    padding:7px 0px;
+    margin-top:10px;
+    text-align:center;
+    color:#fff;
+}
+
+#lastModified {
+    font-size:12px;
+}
+
+/* Hamburger Menu */
+nav > ul { display:none; }
+nav > ul.open { display:block; }
+
+#menu {
+	font-size: 1.5rem;
+	border: 1px solid rgba(0,0,0,.3);
+	padding: 3px 7px 6px;
+	background-color: #eee;
+	color: #000;
+ 	position: absolute;
+	top:1em;
+	right:0em;
+}
+
+#menu::before {
+	content: "☰";
+}
+
+#menu.open::before {
+	content: "X";
+	font-size:16px;
+	font-weight:bold;
+}
+
+/* Dark Mode */
+#mode {
+	position: absolute;
+	top: 1rem;
+	right: 2rem;
+	font-size: 3rem;
+	cursor: pointer;
+}
+
+#joinUsPage form label.top {
+    color:black;
+}
+
+#joinUsPage form input, #joinUsPage form textarea, #joinUsPage form select {
+    width:90%;
+    max-width:500px;
+    min-width:300px;
+}
+
+#memberBenefits section.card {
+    padding:10px;
+    font-size:.8em;
+    text-align:center;
+    border:none;
+}
+
+#memberBenefits section.card h2 {
+    margin-top:0px;
+    text-align:left;
+    margin-bottom:5px;
+}
+
+#memberBenefits section.card p {
+    margin-top:0px;
+    text-align:left;
+}
+
+#memberBenefits section.card ul li {
+    text-align:left;
+}
+
+.submitBtn {
+    margin-top:20px !important;
+    cursor:pointer;
+}
+
+
+/*----------- FORM --------------*/
+form fieldset, #memberBenefits fieldset {
+    border: solid 1px blue;
+    border-radius:10px;
+    padding:.5rem 5%;
+    margin:0 1rem;
+}
+
+form legend, #memberBenefits legend {
+    color:blue;
+    margin:0 1rem;
+    padding:0 .5rem;
+}
+
+form label.top, form div {
+    display:block;
+    padding-top:1rem;
+    color:darkred;
+    font-size:.8rem;
+}
+
+form label.top input, form label.top select, form label.top textarea {
+    -webkit-appearance:none;
+    display:block;
+    font-size:1rem;
+    border: solid 1px #999;
+    border-radius:4px;
+    padding:.75rem;
+    color:#555;
+    width:100%;
+    max-width:20rem;
+    background-color: rgba(0,0,0,0.1);
+}
+
+form label.sbs {
+    display:block;
+    padding: .75rem 0;
+    color:#555;
+}
+
+form input.submitBtn {
+    border:none;
+    background-color:var(--buttonColor);
+    color:white;
+    border-radius:1rem;
+    padding: .75rem 1.5rem;
+    margin: 0 0 2rem 2%;
+    width:96%;
+    max-width:20rem;
+}
+
+form label.top input:required {
+    border-left: var(--formInvalid) solid 6px;
+}
+
+form label.top input:required:valid {
+    border-left: var(--formValid) solid 6px;
+}
+
+
+#membershipLevelField {
+    -webkit-appearance: auto;
+}
+
+#joinUsPage form input, #joinUsPage form select, #joinUsPage form textarea {
+    border: solid 1px var(--formValid);
+    margin-top:4px;
+    background-color:#fff;
+}
+
+#joinUsPage form .submitBtn {
+    background-color:green;
+}
+
+
+#joinUsPage form label.top input:required {
+    border: var(--formInvalid) solid 1px;
+}
+
+#joinUsPage form label.top input:required:valid {
+    border: var(--formValid) solid 1px;
+}
+
+#joinUsPage #reEnterPasswordField.invalid {
+    border: var(--formInvalid) solid 1px;
+}
+
+main #memberCards {
+    display:grid;
+    grid-template: 1fr / auto auto;
+    grid-gap:10px;
+}
+
+main #memberCards > div {
+    border:solid 1px #ddd;
+    padding:20px;
+    border-radius:10px;
+    width:100%;
+    text-align:center;
+    box-sizing: border-box;
+}
+
+main #memberCards > div:hover {
+    border: solid 1px #000;
+}
+
+main #memberCards > div:nth-child(even) {
+    grid-column: 2/3;
+}
+
+main #memberCards > div:nth-child(odd) {
+    grid-column: 1/2;
+}
+
+main #memberCards > div p {
+    text-align:left;
+}
+
+main #memberCards > div div, main #memberCards > div a {
+    margin:10px auto; 
+}
+
+.toggleMenu {
+    text-align:right;
+}
+
+main #memberCards.list {
+    display:flex;
+    flex-direction:column;
+}
+
+main #memberCards.list > div {
+    display:grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding:0px;
+    font-size:.8rem;
+    text-align:left;
+}
+
+main #memberCards.list > div > * {
+    margin:10px auto;
+}
+
+main #memberCards.list h3 {
+    font-size:.8rem;
+}
+
+main #memberCards.list img {
+    display:none;
+}
+
+main #memberCards.list p {
+    display:none;
+}
+
+main #memberCards.list div:nth-child(7) {
+    display:none;
+}
+
+#weatherForecast > div {
+    display:inline-block;
+    width:120px;
+    height:120px;
+    font-size:12px;
+    padding:10px;
+    border:solid 1px #ddd;
+    margin:5px;
+    border-radius:5px;
+}
+
+#weatherForecast > div h3 {
+    margin:0px;
+}
+
+#weatherForecast > div > div {
+    text-transform:capitalize;
+}
+
+#meetAndGreet {
+    text-align:center;
+    padding:10px;
+    background-color:#ff0000;
+    border-bottom: solid 1px #fff;
+    color:#fff;
+}
+
+#meetAndGreet > span {
+    float:right;
+    cursor:pointer;
+}
+
+nav ul {
+    margin-bottom:0px;
+}
+
+#memberCards img { float:none; }
+
+.hero-cta-container a {
+    border:solid 1px #ddd;
+    background-color:green;
+    padding:5px 20px;
+    color:#fff;
+    border-radius:10px;
+    text-decoration:none;
+}
+
+.discover h3 {
+    margin-bottom:5px;
+}
+
+.discover img {
+    transition: transform 1s;
+}
+
+.discover img:hover {
+  transform: scale(1.05);
+}
