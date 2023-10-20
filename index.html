@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="styles/base.css">
         <link rel="stylesheet" href="styles/larger.css">
         <link rel="icon" href="images/favicon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,71 +19,27 @@
 
         <meta property="og:title" content="Card Matching Game by Brett Jameson - WDD 330">
         <meta property="og:type" content="website">
-        <meta property="og:url" content="https://databases-done-right.github.io/matching-game/index.html">
+        <meta property="og:url" content="https://databases-done-right.github.io/match-game/index.html">
         <meta property="og:image" content="https://databases-done-right.github.io/matching-game/images/hero.webp">
     </head>
     <body>
         <header>
-            <!-- <div id="mode">☑️</div> -->
-            <div class="inner-container">
-                <img src="images/logo.png" alt="Chamber Logo">
-            </div>
+            <nav>
+                <ul>
+                    <li>Player 1<br>100</li>
+                    <li>Player 2<br>100</li>
+                    <li>Player 3<br>100</li>
+                    <li>Player 4<br>100</li>
+                    <li><i class="fa-solid fa-bars"></i></li>
+                </ul>
+            </nav>
         </header>
-        <nav>
-            <button id="menu"></button>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="discover.html">Discovery</a></li>
-                <li><a href="join.html">Join</a></li>
-                <li><a href="directory.html">Directory</a></li>
-            </ul>
-        </nav>
+        
         <main>
-            <div id="meetAndGreet"><b>You're Invited!</b> to the Chamber Meet and Greet! Held every Wednesday at 7:00 PM at our main office!<span onClick="closeBanner();">x</span></div>
-            <div class="hero-image-container">
-                <div class="hero-cta-container">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    <a href="join.html">Join Us!</a>
-                </div>
-            </div>
-            <div class="inner-container">
-                <h1>Welcome to the Camelot Chamber of Commerce</h1>
-                <div class="card-container">
-                    <section class="card">
-                        <h2>Current Events</h2>
-                        <div>
-                            <ul>
-                                <li><b><u>Jun 22, 1320</u> Jousting Tournament</b> - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                <li><b><u>Jun 23, 1320</u> Farmers Market</b> - Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
-                                <li><b><u>Jun 24, 1320</u> Archery Tournament</b> - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-                            </ul>
-                        </div>
-                    </section>
-                    <section class="card">
-                        <h2>Weather</h2>
-                        <div>
-                            <div id="weatherForecast">
-                                <div>
-                                    <h3>Current</h3>
-                                    <img id="weather-icon" src="https://placehold.co/1x1" alt="Temperature Icon" loading="lazy" width="50" height="50">
-                                    <div id="current-temp"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="card">
-                        <h2>Member Spotlight</h2>
-                        <div id="memberCards"></div>
-                    </section>
-                </div>
-            </div>
+            
         </main>
         <footer>
-            <div class="inner-container">
-                <p>&copy;<span id="year"></span> Camelot Chamber of Commerce, 123 Castle Drive, Camelot, England &nbsp; &nbsp; (234) 555-1111</p>
-                <p>Developed by Brett Jameson for WDD 230</p>
-                <p id="lastModified"></p>
-            </div>
+            <p>&copy;<span id="year"></span> Brett Jameson</p>
         </footer>
         <script src="scripts/hamburgerMenu.js"></script>
         <script src="scripts/weather.js"></script>
