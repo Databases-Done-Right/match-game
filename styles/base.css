@@ -93,8 +93,59 @@ nav > ul.open { display:block; }
 	font-weight:bold;
 }
 
-
-
 .toggleMenu {
     text-align:right;
+}
+
+#gameboardContainer > div {
+    display:inline-block;
+    margin:10px;
+    max-width:234px;
+    width:234px;
+    height:333px;
+    position:relative;
+}
+
+#gameboardContainer > div img {
+    max-width:234px;
+    width:234px;
+    height:100%;
+    border-radius:10px;
+}
+
+#gameboardContainer > div img.unmatched {
+    cursor:pointer;
+}
+
+#gameboardContainer > div img.flipStart {
+    animation-duration: 2s;
+    animation-name: flipOverStart;
+    transform-origin: center;
+}
+
+@keyframes flipOverStart {
+    from { transform:scale(1); opacity:1; }
+    to { transform:scale(0.5); opacity:0; }
+}
+
+#gameboardContainer > div img.flipEnd {
+    animation-duration: 2s;
+    animation-name: flipOverEnd;
+    transform-origin: center;
+}
+
+@keyframes flipOverEnd {
+    from { transform:scale(0.5); opacity:0; }
+    to { transform:scale(1); opacity:1; }
+}
+
+#gameboardContainer > div img.matched {
+    animation-duration: 2s;
+    animation-name: fadeOutMatch;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOutMatch {
+    from { opacity:1; }
+    to { opacity:0; }
 }
