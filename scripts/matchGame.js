@@ -54,6 +54,7 @@ async function connectToAPI(apiInfo, gameSettings) {
           setNewCards(theImages, numberOfPotentialMatches, matchingHowMany);
           displayGameBoard();
         } else {
+            console.log('Problem connecting to API');
             throw Error(await response.text());
         }
       } catch (error) {
