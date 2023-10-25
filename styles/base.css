@@ -75,9 +75,7 @@ footer {
     color:#fff;
 }
 
-/* Hamburger Menu */
-nav > ul { display:none; }
-nav > ul.open { display:block; }
+
 
 #menu {
 	font-size: 1.5rem;
@@ -119,6 +117,58 @@ nav > ul.open { display:block; }
     height:100%;
     border-radius:10px;
     border:solid 3px #ddd;
+}
+
+nav ul li { display:inline-block; width:30%; }
+
+@media screen and (max-width: 399px) {
+    #gameboardContainer > div, #gameboardContainer > div img {
+        max-width:60px;
+        width:60px;
+    }
+    #gameboardContainer > div {
+        height:25%
+    }
+    nav ul {
+        font-size:.6em;
+    }
+    nav ul li:nth-child(3) { text-align:right;}
+}
+
+@media screen and (max-width: 599px) and (min-width: 400px) {
+    #gameboardContainer > div, #gameboardContainer > div img {
+        max-width:90px;
+        width:90px;
+    }
+    #gameboardContainer > div {
+        height:40%
+    }
+    nav ul {
+        font-size:.7em;
+    }
+}
+
+@media screen and (max-width: 799px) and (min-width: 600px) {
+    #gameboardContainer > div, #gameboardContainer > div img {
+        max-width:117px;
+        width:117px;
+    }
+    #gameboardContainer > div {
+        height:50%
+    }
+    nav ul {
+        font-size:1em;
+    }
+}
+
+@media screen and (max-width: 1199px) and (min-width: 800px) {
+    #gameboardContainer > div, #gameboardContainer > div img {
+        max-width:150px;
+        width:150px;
+    }
+    #gameboardContainer > div {
+        height:65%
+    }
 }
 
 #gameboardContainer > div img:hover {
@@ -185,7 +235,7 @@ nav > ul.open { display:block; }
     position: relative;
     transition: all 5s ease-in-out;
   }
-  
+
   .popup h2 {
     margin-top: 0;
     color: #333;
