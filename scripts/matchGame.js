@@ -46,10 +46,11 @@ async function connectToAPI(apiInfo, gameSettings) {
     const { numberOfCards, matchingHowMany } = gameSettings;
     const numberOfPotentialMatches = numberOfCards / 2 > maxAvailableCards ? maxAvailableCards : numberOfCards / 2;
     //const matchingHowMany = gameMode == "Match 3" || gameMode == "Match 2+" ? 3 : gameMode == "Match 4" ? 4 : 2; 
-console.log('attempting to connect to API');
+console.log('attempting to connect to API2');
     try {
         const response = await fetch(url);
         if (response.ok) {
+console.log('Connected');
           const data = await response.json();
           const theImages = callback(data);
           setNewCards(theImages, numberOfPotentialMatches, matchingHowMany);
