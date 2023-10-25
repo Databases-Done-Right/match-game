@@ -46,6 +46,7 @@ async function connectToAPI(apiInfo, gameSettings) {
     const { numberOfCards, matchingHowMany } = gameSettings;
     const numberOfPotentialMatches = numberOfCards / 2 > maxAvailableCards ? maxAvailableCards : numberOfCards / 2;
     //const matchingHowMany = gameMode == "Match 3" || gameMode == "Match 2+" ? 3 : gameMode == "Match 4" ? 4 : 2; 
+console.log('attempting to connect to API');
     try {
         const response = await fetch(url);
         if (response.ok) {
