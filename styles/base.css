@@ -2,6 +2,7 @@
     --formValid: green;
     --formInvalid: red;
     --buttonColor: green;
+    --animationSpeed: 2s;
   }
 
 body {
@@ -32,22 +33,28 @@ header img {
 nav {
 	background-color: blue;
 	margin: 0 auto;
+    font-size:2em;
+    padding: 1rem;
 }
 nav ul {
 	list-style-type: none;
     margin-top:0px;
     padding-left:0px;
+    margin-bottom:0px;
 }
 nav a {
 	display: block;
 	color: #fff;
-	text-align: center;
-	padding: 1rem;
 	text-decoration: none;
 }
 
+nav ul li:nth-child(3) {
+    text-align:right;
+    cursor:pointer;
+}
+
 nav a:hover {
-	border: 1px solid #fff;
+	color: #000;
 }
 
 nav .active {
@@ -111,6 +118,16 @@ nav > ul.open { display:block; }
     width:234px;
     height:100%;
     border-radius:10px;
+    border:solid 3px #ddd;
+}
+
+#gameboardContainer > div img:hover {
+    border:solid 3px green;
+}
+
+#gameboardContainer > div img.flipped,
+#gameboardContainer > div img.flipped:hover {
+    border:none;
 }
 
 #gameboardContainer > div img.unmatched {
@@ -118,7 +135,7 @@ nav > ul.open { display:block; }
 }
 
 #gameboardContainer > div img.flipStart {
-    animation-duration: 2s;
+    animation-duration: var(--animationSpeed);
     animation-name: flipOverStart;
     transform-origin: center;
 }
@@ -129,7 +146,7 @@ nav > ul.open { display:block; }
 }
 
 #gameboardContainer > div img.flipEnd {
-    animation-duration: 2s;
+    animation-duration: var(--animationSpeed);
     animation-name: flipOverEnd;
     transform-origin: center;
 }
@@ -140,7 +157,7 @@ nav > ul.open { display:block; }
 }
 
 #gameboardContainer > div img.matched {
-    animation-duration: 2s;
+    animation-duration: var(--animationSpeed);
     animation-name: fadeOutMatch;
     animation-fill-mode: forwards;
 }
@@ -149,3 +166,130 @@ nav > ul.open { display:block; }
     from { opacity:1; }
     to { opacity:0; }
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 70%;
+    position: relative;
+    transition: all 5s ease-in-out;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .popup .close:hover {
+    color: #06D85F;
+  }
+  .popup .content {
+    max-height: 30%;
+  }
+
+  @media screen and (max-width: 700px){
+    .box{
+      width: 80%;
+    }
+    .popup{
+      width: 80%;
+    }
+  }
+
+  #menuMain ul {
+    margin-left:0px;
+  }
+
+  #mainMenu {
+    color:#000;
+  }
+  #mainMenu:hover {
+    color:#fff;
+  }
+
+  #menuMain, #menuMain a, #menuMain a:link, #menuMain a:visited {
+    font-size:1.5em;
+    color:inherit;
+    text-decoration:none;
+  }
+
+  #menuMain li, #menuSettings form > div {
+    border:solid 1px #666; padding:10px; width:80%; margin:5px; display:block;
+    background-color:#ddd;
+    border-radius:5px;
+    margin:10px auto;
+  }
+
+  #menuMain li:hover, #menuSettings form button:hover, #menuFinalScore button:hover {
+    border:solid 1px #000;
+    background-color:blue;
+    color:#fff;
+    cursor:pointer;
+  }
+
+  #menuMain a:hover {
+    color:#fff;
+  }
+
+  #menuSettings {
+    font-size:2em;
+  }
+
+  #menuSettings label {
+    width:300px;
+    display:inline-block;
+  }
+
+  #menuSettings form > div {
+    margin:10px;
+  }
+
+  #menuSettings form {
+    margin:0px auto;
+    text-align:center;
+  }
+
+  #menuSettings form button {
+    width:50%; padding:10px;
+    border-radius: 10px;
+    margin:20px auto;
+  }
+
+  #menuFinalScore {
+    text-align:center;
+    font-size:2em;
+    color:#000;
+  }
+
+  #menuFinalScore span {
+    font-size:3em;
+    margin-bottom:20px;
+    display:block;
+  }
+
+  #menuFinalScore button {
+    border-radius:10px;
+    padding:10px;
+    margin-bottom:20px;
+  }

@@ -1,7 +1,7 @@
 import { getLocalStorage, deleteLocalStorage, setLocalStorage } from "./localStorage.mjs";
 
+const localStorageKey = "matchingGameSettings";
 let freezeCardFlip = false;
-let currentRound = 1;
 
 function addCardFlipEventListener(cardId) {
     document.getElementById(cardId).addEventListener("click", () => {
@@ -17,7 +17,7 @@ function addCardFlipEventListener(cardId) {
 function checkForMatch() {
     const faceUpCards = document.getElementsByClassName("flipped");
     const gameSettings = getLocalStorage("matchingGameSettings");
-    const { matchingHowMany, numberOfPlayers } = gameSettings;
+    const { matchingHowMany, numberOfPlayers, numberOfCards } = gameSettings;
     if(faceUpCards.length >= matchingHowMany) {
         let flagMatched = true;
         const urlToMatch = faceUpCards[0].src;
@@ -28,10 +28,14 @@ function checkForMatch() {
         }
         if(flagMatched) {
             processMatch(numberOfPlayers);
+            const currentFaceUpCardCount = document.getElementsByClassName("matched");
+            if(currentFaceUpCardCount.length == Number(numberOfCards)) {
+                goodGame();
+            }
         }
         else {
             flipBackOverAllCards();
-            currentRound++;
+            updateCurrentRound();
         }
     }
     freezeCardFlip = false;
@@ -64,7 +68,6 @@ function displayGameBoard() {
     theCards.map((x) => {
         const link = document.createElement('link');
         const div = document.createElement('div');
-//        div.setAttribute("id", "card"+x.cardId);
         const img = document.createElement("img");
         img.setAttribute("id", "card"+x.cardId);
         if(x.hasBeenMatched) {
@@ -77,14 +80,10 @@ function displayGameBoard() {
             img.className = "unmatched";
         }
         img.setAttribute("alt", "Card");
-        //img.setAttribute("loading", "lazy");
         div.appendChild(img);
-//        div.setAttribute("onClick", "flipCard("+x.cardId+");");
         gameboardContainer.appendChild(div);
         addCardFlipEventListener("card"+x.cardId);
-//        document.getElementById("card"+x.cardId).addEventListener
     });
-    console.log('game ready to start2');
 }
 
 function flipBackOverAllCards() {
@@ -96,6 +95,11 @@ function flipBackOverAllCards() {
 
 function flipCard(theCard, checkResults, endingFaceDown) {
     const currentFlipside = theCard.getAttribute("src");
+    const localSettings = getLocalStorage(localStorageKey);
+    const pauseForAnimation = localSettings.animationSpeed * .75;
+    //    localSettings.animationSpeed = theValue;
+        //setLocalStorage(localStorageKey, localSettings);
+        //document.documentElement.style.setProperty('--animationSpeed', String(theValue / 1000).concat('s'));
     freezeCardFlip = true;
     endingFaceDown ? theCard.classList.remove("flipped") : theCard.classList.add("flipped")
     theCard.classList.add("flipStart");
@@ -103,25 +107,28 @@ function flipCard(theCard, checkResults, endingFaceDown) {
         theCard.src = theCard.getAttribute("flipside");
         theCard.setAttribute("flipside", currentFlipside);
         theCard.classList.remove("flipStart");
-    }, 1300);
+    }, pauseForAnimation);
     setTimeout(() => {
         theCard.classList.add("flipEnd");
-    }, 1300);
+    }, pauseForAnimation);
     setTimeout(() => {
         theCard.classList.remove("flipEnd");
         checkResults ? checkForMatch() : freezeCardFlip = false;
-    }, 3000);
+    }, pauseForAnimation * 1.4);
 }
 
 function getSettings() {
     const initialSettings = {
         gameMode: "Match 2",
-        numberOfCards: 24,
-        cardSet: "Pokemon",
+        numberOfCards: 10,
+        cardSet: "Prophets",
         matchingHowMany: 2,
         numberOfPlayers: 1,
+        animationSpeed: 2000,
+        currentScore: 0,
+        currentRound: 1,
+        matchedCards: "",
     };
-    const localStorageKey = "matchingGameSettings";
     const localSettings = getLocalStorage(localStorageKey);
     if(localSettings) {
         return localSettings
@@ -153,14 +160,25 @@ function getApiData(apiName) {
     return apis.filter((x) => x.name === apiName);
 }
 
-function initializeNewGame() {
+function goodGame() {
+    const localSettings = getLocalStorage(localStorageKey);
+    document.getElementById("finalScoreContainer").innerHTML = localSettings.currentScore;
+    menuItemClicked('Good Game');
+}
+
+export function initializeNewGame() {
+    resetGameLocalStorage();
+    document.getElementById("gameboardContainer").innerHTML = "";
+    updateCurrentRound(1);
     const gameSettings = getSettings();
+    updateCurrentScore(0);
     if(gameSettings.cardSet) {
         const apiData = getApiData("Prophets");
         if(apiData[0] && apiData[0].apiURL && apiData[0].callback) {
             connectToAPI(apiData[0], gameSettings);
         }
     }
+    updateAnimationSpeed(gameSettings.animationSpeed)
 }
 
 function parseDataPokemon(data) {
@@ -177,7 +195,7 @@ function parseDataProphets(data) {
 
 function processMatch(numberOfPlayers) {
     const points = scoreMatch(numberOfPlayers);
-console.log("you scored " + points + " points!");
+    updateCurrentScore(points);
     removeMatch();
 }
 
@@ -189,10 +207,58 @@ function removeMatch() {
     }
 }
 
+function resetGameLocalStorage() {
+    let localSettings = getLocalStorage(localStorageKey);
+    localSettings.currentScore = 0;
+    localSettings.currentRound = 1;
+    localSettings.matchedCards = "";
+    setLocalStorage(localStorageKey, localSettings);
+}
+
 function scoreMatch(numberOfPlayers) {
+    const localSettings = getLocalStorage(localStorageKey);
+    const { currentRound } = localSettings;
     const roundPercentPenalty = currentRound <= 15 ? (currentRound - 1) * 3 : 45;
     const playerBasedPointMultiplier = 1 + ((Number(numberOfPlayers) - 1) * .3);
     return 1000 * playerBasedPointMultiplier * (100 - roundPercentPenalty) / 100;
+}
+
+export function setAnimationSpeed(theValue) {
+    if(theValue && !isNaN(theValue) && theValue >= 500 && theValue <= 2000) {
+        let localSettings = getLocalStorage(localStorageKey);
+        localSettings.animationSpeed = theValue;
+        setLocalStorage(localStorageKey, localSettings);
+        updateAnimationSpeed(theValue);
+    }
+}
+
+export function setCardSet(theValue) {
+    let localSettings = getLocalStorage(localStorageKey);
+    const hasChanged = theValue == localSettings.cardSet ? false : true;
+    localSettings.cardSet = theValue;
+    setLocalStorage(localStorageKey, localSettings);
+    hasChanged || initializeNewGame();
+}
+
+function setCurrentGameState(theCards, roundeNumber, currentScore) {
+
+}
+
+export function setNumberOfCards(theValue) {
+    if(theValue && !isNaN(theValue) && theValue >= 4 && theValue <= 12) {
+        let localSettings = getLocalStorage(localStorageKey);
+        const hasChanged = theValue == localSettings.numberOfCards ? false : true;
+        localSettings.numberOfCards = theValue;
+        setLocalStorage(localStorageKey, localSettings);
+        hasChanged || initializeNewGame();
+    }
+}
+
+export function setSettingsFormFieldValue() {
+    const localSettings = getLocalStorage(localStorageKey);
+    document.getElementById("settingCardSet").value = localSettings.cardSet;
+    document.getElementById("settingNumberOfCards").value = localSettings.numberOfCards;
+    document.getElementById("settingAnimationSpeed").value = localSettings.animationSpeed;
 }
 
 function setNewCards(theImages, numberOfPotentialMatches, matchingHowMany) {
@@ -220,5 +286,31 @@ function shuffleCards(array) {
     return array;
 }
 
+function updateAnimationSpeed(theValue) {
+    if(theValue && !isNaN(theValue)) {
+        document.documentElement.style.setProperty('--animationSpeed', String(theValue / 1000).concat('s'));
+    }
+}
+
+function updateCurrentRound(theValue) {
+    let localSettings = getLocalStorage(localStorageKey);
+    if(theValue && !isNaN(theValue)) {
+        localSettings.currentRound = theValue;
+    }
+    else {
+        localSettings.currentRound++;
+    }
+    setLocalStorage(localStorageKey, localSettings);
+    document.getElementById("displayRoundContainer").innerHTML = localSettings.currentRound;
+}
+
+function updateCurrentScore(theValue) {
+    if(theValue && !isNaN(theValue)) {
+        let localSettings = getLocalStorage(localStorageKey);
+        theValue == 0 ? localSettings.currentScore = 0 : localSettings.currentScore += theValue;
+        setLocalStorage(localStorageKey, localSettings);
+        document.getElementById("displayScoreContainer").innerHTML = localSettings.currentScore;
+    }
+}
+
 initializeNewGame();
-//const apis = getApiList();

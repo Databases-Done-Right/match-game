@@ -26,11 +26,9 @@
         <header>
             <nav>
                 <ul>
-                    <li>Player 1<br>100</li>
-                    <li>Player 2<br>100</li>
-                    <li>Player 3<br>100</li>
-                    <li>Player 4<br>100</li>
-                    <li><i class="fa-solid fa-bars"></i></li>
+                    <li>Round: <span id="displayRoundContainer">1</span></li>
+                    <li>Score: <span id="displayScoreContainer">0</span></li>
+                    <li><a onClick="menuItemClicked('Main Menu');"><i class="fa-solid fa-lg fa-bars"></i></a></li>
                 </ul>
             </nav>
         </header>
@@ -38,13 +36,45 @@
         <main>
             <div id="gameMessageContainer"></div>
             <div id="gameboardContainer"></div>
+            <div id="menuRoot" class="overlay" style="display:none;">
+                <div class="popup">
+                    <h2 id="mainMenuLabel">Main Menu</h2>
+                    <a class="close" href="#" onClick="menuItemClicked('Close');">&times;</a>
+                    <div id="mainMenuContent" class="content">
+                        <ul id="menuMain">
+                            <li><a href="#" onClick="menuItemClicked('New Game');">New Game</a></li>
+                            <!-- <li><a href="#" onClick="menuItemClicked('Leaderboard');">Leaderboard</a></li> -->
+                            <li><a href="#" onClick="menuItemClicked('Settings');">Settings</a></li>
+                            <li><a href="#" onClick="menuItemClicked('Close');">Continue Game</a></li>
+                        </ul>
+                        <div id="menuFinalScore">
+                            <h2>Great Job!<br>Your Score Was<br></h2>
+                            <span id="finalScoreContainer"></span>
+                            <button onClick="menuItemClicked('New Game');">Play Again</button>
+                        </div>
+                        <div id="menuLeaderboard">Leaderboard
+                        </div>
+                        <div id="menuSettings">
+                            <form>
+                                <div>
+                                    <label>Card Set</label><select name="settingCardSet" id="settingCardSet" onChange="setCardSet(this.value);">
+                                        <option value="Prophets">Prophets</option>
+                                        <!-- <option value="Temple">Temples</option> -->
+                                    </select>
+                                </div>
+                                <div><label>Number of Cards</label><input type="number" min="4" max="12" id="settingNumberOfCards" name="settingNumberOfCards" onChange="setNumberOfCards(this.value);" /></div>
+                                <div><label>Animation Speed</label><input type="number" min="500" max="2000" step="500" name="settingAnimationSpeed" id="settingAnimationSpeed" onChange="setAnimationSpeed(this.value);" /></div>
+                                <button onClick="menuItemClicked('Close');">Submit</button>
+                            </form>
+                        <div>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer>
             <p>&copy;<span id="year"></span> Brett Jameson</p>
         </footer>
-        <div id="testing">
-
-        </div>
+        <script src="scripts/main.js" type="module"></script>
         <script src="scripts/matchGame.js" type="module"></script>
     </body>
 </html>
