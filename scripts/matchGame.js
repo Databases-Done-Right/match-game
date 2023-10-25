@@ -296,14 +296,16 @@ function updateAnimationSpeed(theValue) {
 
 function updateCurrentRound(theValue) {
     let localSettings = getLocalStorage(localStorageKey);
-    if(theValue && !isNaN(theValue)) {
-        localSettings.currentRound = theValue;
+    if(localSettings && localSettings.currentRound) {
+        if(theValue && !isNaN(theValue)) {
+            localSettings.currentRound = theValue;
+        }
+        else {
+            localSettings.currentRound++;
+        }
+        setLocalStorage(localStorageKey, localSettings);
+        document.getElementById("displayRoundContainer").innerHTML = localSettings.currentRound;
     }
-    else {
-        localSettings.currentRound++;
-    }
-    setLocalStorage(localStorageKey, localSettings);
-    document.getElementById("displayRoundContainer").innerHTML = localSettings.currentRound;
 }
 
 function updateCurrentScore(theValue) {
