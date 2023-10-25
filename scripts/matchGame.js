@@ -171,7 +171,7 @@ export function initializeNewGame() {
     document.getElementById("gameboardContainer").innerHTML = "";
     updateCurrentRound(1);
     const gameSettings = getSettings();
-    //updateCurrentScore(0);
+    ////updateCurrentScore(0);
     if(gameSettings.cardSet) {
         const apiData = getApiData("Prophets");
         if(apiData[0] && apiData[0].apiURL && apiData[0].callback) {
@@ -209,10 +209,12 @@ function removeMatch() {
 
 function resetGameLocalStorage() {
     let localSettings = getLocalStorage(localStorageKey);
-    localSettings.currentScore = 0;
-    localSettings.currentRound = 1;
-    localSettings.matchedCards = "";
-    setLocalStorage(localStorageKey, localSettings);
+    if(localSettings) {
+        localSettings.currentScore = 0;
+        localSettings.currentRound = 1;
+        localSettings.matchedCards = "";
+        setLocalStorage(localStorageKey, localSettings);
+    }
 }
 
 function scoreMatch(numberOfPlayers) {
