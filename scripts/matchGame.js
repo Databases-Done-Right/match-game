@@ -46,17 +46,14 @@ async function connectToAPI(apiInfo, gameSettings) {
     const { numberOfCards, matchingHowMany } = gameSettings;
     const numberOfPotentialMatches = numberOfCards / 2 > maxAvailableCards ? maxAvailableCards : numberOfCards / 2;
     //const matchingHowMany = gameMode == "Match 3" || gameMode == "Match 2+" ? 3 : gameMode == "Match 4" ? 4 : 2; 
-console.log('attempting to connect to API2');
     try {
         const response = await fetch(url);
         if (response.ok) {
-console.log('Connected');
           const data = await response.json();
           const theImages = callback(data);
           setNewCards(theImages, numberOfPotentialMatches, matchingHowMany);
           displayGameBoard();
         } else {
-            console.log('Problem connecting to API');
             throw Error(await response.text());
         }
       } catch (error) {
@@ -174,7 +171,7 @@ export function initializeNewGame() {
     document.getElementById("gameboardContainer").innerHTML = "";
     updateCurrentRound(1);
     const gameSettings = getSettings();
-    updateCurrentScore(0);
+    //updateCurrentScore(0);
     if(gameSettings.cardSet) {
         const apiData = getApiData("Prophets");
         if(apiData[0] && apiData[0].apiURL && apiData[0].callback) {
